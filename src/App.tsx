@@ -11,6 +11,7 @@ function App() {
         <img src="src\assets\pngtree-study-icons-boy-sitting-at-a-table-with-book-vector-png-image_6925863.png" className="logo"/>
       </div>
       <h1>Gestor de tareas</h1>
+      <p>DESARROLLO EN MI PRUEBA</p>
       <div className="card">
         <p>Cuanto deseas hacer?</p>
         <button onClick={() => setCount((count) => count + 1)}>
