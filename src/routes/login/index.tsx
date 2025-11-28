@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import  supabase  from '../../client'
 import React, { useState } from 'react'
-
 export const Route = createFileRoute('/login/')({
     component: Index,
 })
@@ -13,27 +12,36 @@ function Index() {
         email: string ;
         password: string ;
         namee: string;
+        error:string
     }
     const [data, setData] = useState<Data>({
         email: "",
         password: "",
         namee:"",
+        error: ""
     });
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        await supabase.auth.signUp({
+        const {error: signUpError } = await supabase.auth.signUp({
             email: data.email,
             password: data.password,
         })
-        await supabase
+        if (signUpError) {
+            console.error("Error creando usuario:", signUpError.message)
+            return;
+        }
+        const { error: insertError } = await supabase
             .from('profiles')
             .insert({
-                namee: data.namee,
+                nombre: data.namee,
                 email: data.email,
-                password: data.password,
             })
-
+        if (insertError) {
+            console.error("Error creando usuario:", insertError.message)
+            return;
+        }
+            console.log(data)
     }
     
     return (
