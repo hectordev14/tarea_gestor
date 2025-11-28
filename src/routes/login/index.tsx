@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { supabase } from '../../supabase/client'
+import  supabase  from '../../client'
 import React, { useState } from 'react'
 
 export const Route = createFileRoute('/login/')({
@@ -12,10 +12,12 @@ function Index() {
     interface Data{
         email: string ;
         password: string ;
+        namee: string;
     }
     const [data, setData] = useState<Data>({
         email: "",
-        password: ""
+        password: "",
+        namee:"",
     });
     
     const handleSubmit = async (e: React.FormEvent) => {
@@ -27,11 +29,13 @@ function Index() {
         await supabase
             .from('profiles')
             .insert({
+                namee: data.namee,
                 email: data.email,
                 password: data.password,
             })
 
     }
+    
     return (
         <>
         <div className="p-2">
@@ -40,9 +44,9 @@ function Index() {
         <form>
                 <input
                     type="text"
-                    name='email'
-                    placeholder='youremail@site.com'
-                    onChange={(e) => setData({ ...data, email: e.target.value })}
+                    name='nombre'
+                    placeholder='Sam Wilson'
+                    onChange={(e) => setData({ ...data, namee: e.target.value })}
                 />
             <input 
             type="text"
@@ -58,6 +62,7 @@ function Index() {
                 />
             <button onClick={handleSubmit}>Enviar</button>
         </form>
+        
         </>
     )
 }
