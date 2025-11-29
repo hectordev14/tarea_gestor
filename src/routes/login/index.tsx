@@ -32,7 +32,7 @@ function Index() {
             return;
         }
         const { error: insertError } = await supabase
-            .from('profiles')
+            .from('useer')
             .insert({
                 nombre: data.namee,
                 email: data.email,
